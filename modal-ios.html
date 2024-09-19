@@ -12,33 +12,51 @@
   <link href="https://edulicenses.edu.gov.qa/assests/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <style>
     .modal-body {
-      overflow: auto;
-    max-height: 80vh; /* Or any appropriate height */
-    -webkit-overflow-scrolling: touch;
-       min-height: 80vh; /* Or any appropriate height */
+  overflow: hidden; /* Prevent outer scrolling */
+  padding: 0; /* Remove any extra padding */
 }
+
+.modal-body iframe {
+  width: 100%;
+  height: 100%; /* Make the iframe take full height */
+}
+
+@media (max-height: 800px) {
+  .modal-body {
+    height: 80vh; /* For smaller screen heights, limit modal height */
+  }
+}
+
+.modal-body {
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
 </style>
 
 </head>
 
 <body>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pdfModal">
-        Launch demo modal
-      </button>
-      <div class="modal fade" id="pdfModal" tabindex="-1">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">PDF Viewer</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <iframe src="attachemt.pdf" style="width:100%; height:77vh;"></iframe>
-
-                </div>
-            </div>
+    <!-- Button to trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pdfModal">
+    Open PDF
+  </button>
+  
+  <!-- Modal Structure -->
+  <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> <!-- Use modal-lg for larger width -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pdfModalLabel">PDF Viewer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <!-- Iframe for PDF -->
+          <iframe src="attachemt.pdf" frameborder="0" width="100%" height="500px"></iframe>
+        </div>
+      </div>
     </div>
+  </div>
+  
     
     
 
