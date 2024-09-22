@@ -61,7 +61,7 @@
   </div>
    <object data="attachemt.pdf" type="application/pdf" width="100%" height="500px">
 
-    
+    <div id="pdfViewer"></div>
 
 
 
@@ -70,7 +70,34 @@
   <script src='https://edulicenses.edu.gov.qa/lib/jquery/dist/jquery.js?v=KSI_3xxCrCexCupdzQJRP1B6Iqg-2NA-X2u38cQdqq8'></script>
 
   <script src="https://edulicenses.edu.gov.qa/assests/vendor/bootstrap/js/bootstrap.bundle.min.js?v=Z15KbFrsHPwXHPD-bs5EwEQxryhlO6VSJwYQ_DqjYOE"></script>
-  <script src="pdf.min.js"></script>
+<script>
+  var url = 'attachemt.pdf';
+
+  var pdfjsLib = window['pdfjs-dist/build/pdf'];
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js';
+
+  pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+    pdfDoc = pdfDoc_;
+    pdfDoc.getPage(1).then(function(page) {
+      var scale = 1.5;
+      var viewport = page.getViewport({scale: scale});
+
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      document.getElementById('pdfViewer').appendChild(canvas);
+
+      var renderContext = {
+        canvasContext: context,
+        viewport: viewport
+      };
+      page.render(renderContext);
+    });
+  });
+</script>
+
 
 </body>
 
